@@ -1,0 +1,44 @@
+#include <Servo.h>
+#include <Ultrasonic.h>
+
+#define PinRele_A 6
+#define PinRele_B 7 
+#define pino_trigger 10
+#define pino_echo 9
+
+void setup() {
+  pinMode(PinRele_A, OUTPUT);
+  pinMode(PinRele_B, OUTPUT);
+  Servo.attach(2);
+  Serial.begin(9600);
+  Serial.println("Lendo dados do sensor...");
+}
+
+void loop() {
+  Servo.write(90);
+  delay(0);
+  
+  digitalWrite(PinReleA, HIGH);
+  delay(1000);
+  digitalWrite(PinReleA, LOW);
+  delay(1000);
+  digitalWrite(PinReleB, HIGH);
+  delay(1000);
+  digitalWrite(PinReleB, LOW);
+  delay(1000);
+
+  float cmMsec;
+  long microsec = ultrasonic.timing();
+  cmMsec = ultrasonic.convert(microsec, Ultrasonic::CM);
+
+  Serial.print("Distancia em cm: ");
+  Serial.println(cmMsec);
+  delay(500);
+
+  if (cmMsec >= 30){
+    
+    }else{
+      digitalWrite(PinReleA, LOW);
+      digitalWrite(PinReleB, LOW);
+      }
+}
